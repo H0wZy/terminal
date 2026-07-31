@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "style": "plain",
+          "foreground": "#b45fff",
+          "options": {
+            "style": "full"
+          },
+          "template": "{{ .UserName }}@{{ .HostName }} "
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#FFFFFF",
+          "template": "in "
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#ff6a4d",
+          "options": {
+            "style": "full"
+          },
+          "template": "{{ path .Path .Location }} "
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "#b45fff",
+          "options": {
+            "branch_ahead_icon": "",
+            "branch_behind_icon": "",
+            "branch_gone_icon": "",
+            "branch_icon": "",
+            "branch_identical_icon": "",
+            "cherry_pick_icon": "",
+            "commit_icon": "",
+            "fetch_status": true,
+            "merge_icon": "",
+            "rebase_icon": "",
+            "revert_icon": "",
+            "tag_icon": ""
+          },
+          "template": "<#FFFFFF>on</> {{ .HEAD }}{{ if .Staging.Changed }}<#87FF00> ● {{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }}<#D75F00> ● {{ .Working.String }}</>{{ end }} "
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#ffd43b",
+          "options": {
+            "display_mode": "context",
+            "fetch_virtual_env": true,
+            "fetch_version": false,
+            "display_default": false,
+            "folders": [".venv", "venv", "virtualenv", "venv-win", "pyenv-win"],
+            "default_venv_names": [".venv", "venv"],
+            "folder_name_fallback": false
+          },
+          "template": "{{ if .Venv }}<#FFFFFF>via</> ({{ .Venv }}) {{ end }}"
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#ffd43b",
+          "background": "#007ACC",
+          "template": "  v{{ .Full }} "
+        },
+        {
+          "type": "wakatime",
+          "style": "plain",
+          "foreground": "#007ACC",
+          "template": "{{ secondsRound .CumulativeTotal.Seconds }} ",
+          "options": {
+            "url": "https://wakatime.com/api/v1/users/current/summaries?start=today&end=today&api_key={{ .Env.WAKATIME_API_KEY }}",
+            "http_timeout": 500
+          }
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#ff6a4d",
+          "template": " → "
+        }
+      ]
+    }
+  ],
+  "version": 4
+}
