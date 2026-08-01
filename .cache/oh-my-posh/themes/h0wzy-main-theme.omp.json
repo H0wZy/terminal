@@ -6,9 +6,19 @@
       "alignment": "left",
       "segments": [
         {
+          "type": "os",
+          "style": "plain",
+          "foreground": "#d6acff",
+          "template": "{{ .Icon }} ",
+          "options": {
+            "windows": "",
+            "linux": ""
+          }
+        },
+        {
           "type": "session",
           "style": "plain",
-          "foreground": "#b45fff",
+          "foreground": "#d6acff",
           "options": {
             "style": "full"
           },
@@ -23,16 +33,16 @@
         {
           "type": "path",
           "style": "plain",
-          "foreground": "#ff6a4d",
+          "foreground": "#f8e044",
           "options": {
             "style": "full"
           },
-          "template": "{{ path .Path .Location }} "
+          "template": " {{ path .Path .Location }} "
         },
         {
           "type": "git",
           "style": "plain",
-          "foreground": "#b45fff",
+          "foreground": "#d6acff",
           "options": {
             "branch_ahead_icon": "",
             "branch_behind_icon": "",
@@ -47,45 +57,58 @@
             "revert_icon": "",
             "tag_icon": ""
           },
-          "template": "<#FFFFFF>on</> {{ .HEAD }}{{ if .Staging.Changed }}<#87FF00> ● {{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }}<#D75F00> ● {{ .Working.String }}</>{{ end }} "
+          "template": "<#FFFFFF>on</> 󰘬 {{ .HEAD }}{{ if .Staging.Changed }}<#87FF00> ● {{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }}<#D75F00> ● {{ .Working.String }}</>{{ end }} "
         },
         {
           "type": "python",
           "style": "plain",
-          "foreground": "#ffd43b",
+          "foreground": "#f8e044",
           "options": {
             "display_mode": "context",
             "fetch_virtual_env": true,
             "fetch_version": false,
-            "display_default": false,
-            "folders": [".venv", "venv", "virtualenv", "venv-win", "pyenv-win"],
-            "default_venv_names": [".venv", "venv"],
-            "folder_name_fallback": false
+            "display_default": false
           },
           "template": "{{ if .Venv }}<#FFFFFF>via</> ({{ .Venv }}) {{ end }}"
         },
         {
           "type": "python",
           "style": "plain",
-          "foreground": "#ffd43b",
-          "background": "#007ACC",
-          "template": "  v{{ .Full }} "
+          "foreground": "#f8e044",
+          "options": {
+            "display_mode": "context",
+            "fetch_version": true
+          },
+          "template": " v{{ .Full }} "
         },
         {
           "type": "wakatime",
           "style": "plain",
-          "foreground": "#007ACC",
-          "template": "{{ secondsRound .CumulativeTotal.Seconds }} ",
+          "foreground": "#30acff",
+          "template": "<#FFFFFF>at</>  {{ secondsRound .CumulativeTotal.Seconds }} ",
           "options": {
             "url": "https://wakatime.com/api/v1/users/current/summaries?start=today&end=today&api_key={{ .Env.WAKATIME_API_KEY }}",
-            "http_timeout": 500
+            "http_timeout": 2000
           }
         },
         {
           "type": "text",
           "style": "plain",
-          "foreground": "#ff6a4d",
-          "template": " → "
+          "foreground": "#FFFFFF",
+          "template": ""
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#FFFFFF",
+          "template": "❯ "
         }
       ]
     }

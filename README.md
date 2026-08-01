@@ -6,8 +6,8 @@ Repositório pessoal para salvar e sincronizar minhas configurações de termina
 
 ```text
 terminal/
-├── .config/ohmyposh/
-│   └── howzy-main-theme.omp.json
+├── .cache/oh-my-posh/themes/
+│   └── h0wzy-main-theme.omp.json
 ├── bash/
 │   └── .bashrc
 ├── fonts/Nerd Fonts/
@@ -68,13 +68,15 @@ Depois, no Windows Terminal:
 No PowerShell, dentro deste repositório:
 
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.config\ohmyposh"
+New-Item -ItemType Directory -Force "$HOME\.cache\oh-my-posh\themes"
 
 Copy-Item `
-  ".\.config\ohmyposh\howzy-main-theme.omp.json" `
-  "$HOME\.config\ohmyposh\" `
+  ".\.cache\oh-my-posh\themes\h0wzy-main-theme.omp.json" `
+  "$HOME\.cache\oh-my-posh\themes\" `
   -Force
 ```
+
+Por padrão o perfil do PowerShell já aponta pra esse caminho via `$env:OMP_THEME_PATH` (passo 4). Pra usar outro local, exporte a variável antes.
 
 ## 4. Configurar o PowerShell
 
@@ -110,8 +112,18 @@ Recarregue o perfil:
 Abra o Konsole:
 
 ```bash
-sudo dnf install git oh-my-posh fontconfig
+sudo dnf install git fontconfig
 ```
+
+O Oh My Posh não tem pacote oficial no dnf. Instale pelo script oficial:
+
+```bash
+curl -s https://ohmyposh.dev/install.sh | bash -s
+```
+
+Por padrão instala o binário em `~/bin` ou `~/.local/bin` (o que existir primeiro). Garanta que o diretório está no `PATH`.
+
+O instalador também já cria `~/.cache/oh-my-posh/themes` (temas embutidos) — é ali que o tema pessoal deste repo é colocado também (passo 3), pra manter tudo no mesmo diretório do oh-my-posh.
 
 ## 2. Instalar a fonte
 
@@ -136,11 +148,13 @@ Depois, no Konsole:
 ## 3. Instalar o tema
 
 ```bash
-mkdir -p ~/.config/ohmyposh
+mkdir -p ~/.cache/oh-my-posh/themes
 
-cp .config/ohmyposh/howzy-main-theme.omp.json \
-  ~/.config/ohmyposh/
+ln -sf "$(pwd)/.cache/oh-my-posh/themes/h0wzy-main-theme.omp.json" \
+  ~/.cache/oh-my-posh/themes/h0wzy-main-theme.omp.json
 ```
+
+Symlink, não cópia: editar o arquivo do repo já reflete no tema ativo, sem re-copiar. Por padrão o `.bashrc` já aponta pra esse caminho via `OMP_THEME_PATH` (passo 4). Pra usar outro local, exporte a variável antes.
 
 ## 4. Configurar o Bash
 
@@ -174,3 +188,5 @@ git push
 - Faça backup das configurações existentes antes de substituí-las.
 - Não adicione senhas, tokens ou outras informações sensíveis ao repositório.
 - Alguns caminhos podem precisar de ajustes dependendo do usuário ou do ambiente.
+- O caminho do tema não é fixo no `.bashrc`/perfil do PowerShell: ambos leem a variável de ambiente `OMP_THEME_PATH`, com fallback pra `~/.cache/oh-my-posh/themes/h0wzy-main-theme.omp.json`. Pra usar outro tema/local, exporte `OMP_THEME_PATH` antes de carregar o shell.
+- O segment do wakatime lê a API key da variável `WAKATIME_API_KEY`, exportada automaticamente a partir de `~/.wakatime.cfg` (se existir). Sem esse arquivo, o segment fica oculto.
