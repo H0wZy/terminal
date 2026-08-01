@@ -66,20 +66,11 @@
           "options": {
             "display_mode": "context",
             "fetch_virtual_env": true,
-            "fetch_version": false,
-            "display_default": false
+            "fetch_version": true,
+            "display_default": false,
+            "folder_name_fallback": false
           },
-          "template": "{{ if .Venv }}<#FFFFFF>via</> ({{ .Venv }}) {{ end }}"
-        },
-        {
-          "type": "python",
-          "style": "plain",
-          "foreground": "#f8e044",
-          "options": {
-            "display_mode": "context",
-            "fetch_version": true
-          },
-          "template": " v{{ .Full }} "
+          "template": "{{ if .Venv }}<#FFFFFF>via</>  {{ .Venv }} {{ .Full }} {{ end }}"
         },
         {
           "type": "wakatime",
